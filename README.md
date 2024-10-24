@@ -27,7 +27,7 @@ _Se utilizan las siguientes tecnologias para el desarrollo del proyecto:_
 
 ## **Tareas**  ✒️
 
- - [Importar librerías necesarias](#Importar librerías necesarias)
+ - [Importar librerías necesarias](# Importar librerías necesarias)
  2. Cargar los Datos
  3. Explore y visualice los datos para obtener información.
  4. Prepare los datos para los algoritmos de machine learning.
