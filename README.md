@@ -15,7 +15,7 @@ _Se utilizan las siguientes tecnologias para el desarrollo del proyecto:_
 * [Numpy](https://numpy.org/) -- <img height="20" src="https://cdn.simpleicons.org/numpy?viewbox=auto" />
 * [Scikit-learn](https://scikit-learn.org/stable/) -- <img height="20" src="https://cdn.simpleicons.org/scikitlearn?viewbox=auto" />
 * [github](https://github.com) --<img height="20" src="https://cdn.simpleicons.org/github?viewbox=auto" />
-* [seaborn](https://seaborn.pydata.org/) -- <img height="20" src="https://cdn.simpleicons.org/seaborn?viewbox=auto" />
+* [seaborn](https://seaborn.pydata.org/) -- <img height="20" src="https://seaborn.pydata.org/_images/logo-mark-lightbg.svg?viewbox=auto" />
 
 ## **Autores** 😊
 
