@@ -44,4 +44,16 @@ _Se utilizan las siguientes tecnologias para el desarrollo del proyecto:_
  15. Presente su solución.
  16. Inicie, supervise y mantenga su sistema.
 
-# Importar librerías necesarias
+
+## **Importar librerías necesarias** <a name="Importar librerías necesarias"></a>
+
+```python
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.decomposition import PCA
+```
