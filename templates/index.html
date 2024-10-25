@@ -1,11 +1,55 @@
 
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, maximum-scale=1">
-<title>GreenPredEnergy</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Departamento y Municipio</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+    <h1>PROYECTO PARA MOSTRAR LOS MUNICIPIOS QUE SEA FACTIBLE PARA PROYECTO RENOVABLE</h1>
+    <h1>Selecciona tu Departamento y Municipio</h1>
+    <form method="POST">
+        <!-- Selector de departamento -->
+        <label for="departamento">Departamento:</label>
+        <select id="departamento" name="departamento">
+            <option value="">Selecciona un departamento</option>
+            {% for dept in departamentos %}
+            <option value="{{ dept }}">{{ dept }}</option>
+            {% endfor %}
+        </select>
+    
+        <!-- Selector de municipio -->
+            <label for="municipio">Municipio:</label>
+            <select id="municipio" name="municipio">
+                <option value="">Selecciona un municipio</option>
+            </select>
+           <button type="submit">Enviar</button>
+        </form>
+    
+        <script>
+            // Actualizar los municipios cuando se selecciona un departamento
+            $('#departamento').change(function() {
+                var departamento = $(this).val();
+                $('#municipio').empty(); // Vaciar los municipios anteriores
+                $('#municipio').append('<option value="">Selecciona un municipio</option>');
+    
+                if(departamento) {
+                    $.ajax({
+                        url: '/get_municipios',
+                        method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ departamento: departamento }),
+                    success: function(response) {
+                        $.each(response, function(index, municipio) {
+                            $('#municipio').append('<option value="' + municipio + '">' + municipio + '</option>');
+                        });
+                    }
+                });
+            }
+        });
+    </script>
 </body>
+
 </html>
