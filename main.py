@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 # Diccionario de departamentos y municipios de ejemplo
 departamentos_y_municipios = {
-    'Antioquia': ['Medellín', 
+'Antioquia': ['Medellín', 
 'Abejorral', 
 'Abriaquí', 
 'Alejandría', 
