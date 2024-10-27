@@ -1,13 +1,20 @@
-# **Proyecto Final - TalentoTech**
-### **Predicción de viabilidad de proyectos de energia renovable en Colombia**
+# ***GreenPredenergy:*** **Predicción de viabilidad de proyectos de energia renovable en Colombia**
+### Proyecto Final - TalentoTech 2024
 
 > El proyecto fue realizado en el marco del curso de AI-ML TalentoTech
 
 ## **Descripcion** 🚀
-_Este proyecto utiliza Python y Jupyter Notebook, pandas, numpy para el desarrollo del modelo de predicción de proyectos de energia renobable en los municipios de Colombia._
+Debido a la posición geográfica, Colombia es un país con mucho potencial de desarrollar proyectos de energía renovable, sin embargo, los esfuerzos del gobierno se ven mermados por la gran desconexión del territorio. Es por esta razón que este proyecto se enfoca en traer la atención a estos lugares, con el fin de ser considerados como fuertes candidatos para invertir en su infrasestructura energética y así fortalecer el desarrollo regional del país.
+
+A través del análisis de datos energéticos y meteorológicos, de los municipios, este modelo evalua y predice la viabilidad de un proyecto de energía renovable. Con la información que brinda este algoritmo de _machine learning_ los inversores y los gobiernos locales tienen la oportunidad de evaluar y reducir los costos de un proyecto de energía solar o eólica. 
+
+## **Características del proyecto** :hammer: 
+Nuestro modelo trabaja con datos abierto del gobierno de Colombia. Introduce el municipio y recibe:
+
+*Una evaluación directa de la viabilidad
 
 ## **Tecnologías** 📗
-_Se utilizan las siguientes tecnologias para el desarrollo del proyecto:_
+Se utilizan las siguientes tecnologias para el desarrollo del proyecto:
 
 * [ Python ](https://www.python.org/) -- <img height="20" src="https://cdn.simpleicons.org/python?viewbox=auto" />
 * [Jupyter](https://jupyter.org/) -- <img height="20" src="https://cdn.simpleicons.org/jupyter?viewbox=auto" />
@@ -16,7 +23,7 @@ _Se utilizan las siguientes tecnologias para el desarrollo del proyecto:_
 * [Scikit-learn](https://scikit-learn.org/stable/) -- <img height="20" src="https://cdn.simpleicons.org/scikitlearn?viewbox=auto" />
 * [github](https://github.com) -- <img height="20" src="https://cdn.simpleicons.org/github?viewbox=auto" />
 * [seaborn](https://seaborn.pydata.org/) -- <img height="20" src="https://seaborn.pydata.org/_images/logo-mark-lightbg.svg?viewbox=auto" />
-* [flak](https://flask.palletsprojects.com/en/2.0.x/) -- <img height="20" src="https://cdn.simpleicons.org/flask?viewbox=auto" />
+* [flask](https://flask.palletsprojects.com/en/2.0.x/) -- <img height="20" src="https://cdn.simpleicons.org/flask?viewbox=auto" />
 
 ## **Autores** 😊
 
