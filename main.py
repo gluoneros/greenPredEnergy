@@ -1,375 +1,56 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, json, render_template, request, jsonify
+import pickle
 
 app = Flask(__name__)
 
+with open('modelo.pkl', 'rb') as f:
+    model = pickle.load(f)
+
 # Diccionario de departamentos y municipios
-departamentos_y_municipios = {
-    "Antioquía": [
-        "ABRIAQUÍ",
-        "ANDES",
-        "ARGELIA",
-        "BELLO",
-        "CAREPA",
-        "CAÑASGORDAS",
-        "CHIGORODÓ",
-        "COCORNÁ",
-        "CONCORDIA",
-        "ENTRERRIOS",
-        "GRANADA",
-        "JARDÍN",
-        "JERICÓ",
-        "MEDELLÍN",
-        "YOLOMBÓ",
-        "VENECIA",
-        "VEGACHÍ",
-        "VALDIVIA",
-        "TÁMESIS",
-        "TURBO",
-        "SONSÓN",
-        "RETIRO",
-        "RIONEGRO",
-        "SAN ROQUE",
-        "SANTA BÁRBARA",
-        "SANTA FE DE ANTIOQUIA",
-        "SANTA ROSA DE OSOS",
-        "SANTUARIO",
-    ],
-    "Chocó": [
-        "ACANDÍ",
-        "ALTO BAUDÓ (PIE DE PATO)",
-        "BAHÍA SOLANO (MUTIS)",
-        "BOJAYÁ (BELLAVISTA)",
-        "CARMEN DEL DARIÉN  (CURBARADÓ)",
-        "CÉRTEGUI",
-        "EL ATRATO",
-        "LLORÓ",
-        "MEDIO ATRATO (BETÉ)",
-        "NUQUÍ",
-        "NÓVITA",
-        "UNIÓN PANAMERICANA",
-        "UNGUÍA",
-        "TADÓ",
-        "QUIBDÓ",
-        "SAN JOSÉ DEL PALMAR",
-    ],
-    "Huila": [
-        "ACEVEDO",
-        "ALGECIRAS",
-        "BARAYA",
-        "GIGANTE",
-        "LA PLATA",
-        "NEIVA",
-        "NÁTAGA",
-        "OPORAPA",
-        "VILLAVIEJA",
-        "TERUEL",
-        "TELLO",
-        "PITALITO", 
-        "SALADOBLANCO",
-        "SAN AGUSTÍN",
-    ],
-    "Cesar": [
-        "AGUACHICA",
-        "AGUSTÍN CODAZZI",
-        "EL PASO",
-        "VALLEDUPAR",
-        "PAILITAS",
-        "PUEBLO BELLO",
-    ],
-    "La Guajira": [
-        "ALBANIA",
-        "DIBULLA",
-        "FONSECA",
-        "URIBIA",
-        "RIOHACHA",
-    "SAN JUAN DEL CESAR",
-    ],
-    "Valle del cauca": [
-        "ALCALÁ",
-        "ANSERMANUEVO",
-        "BUENAVENTURA",
-        "BUGA",
-        "CAICEDONIA",
-        "CALI",
-        "CARTAGO",
-        "CERRITO",
-        "DAGUA",
-        "FLORIDA",
-        "GINEBRA",
-        "JAMUNDÍ",
-        "LA CUMBRE",
-        "TRUJILLO",
-        "PALMIRA",
-        "SEVILLA",
-    ],
-    "Nariño": [
-        "ALDANA",
-        "BARBACOAS",
-        "CONSACÁ",
-        "CONTADERO",
-        "LA UNIÓN",
-        "TÚQUERRES",
-        "TUMACO",
-        "PASTO",
-        "TAMINANGO",
-        "SANDONÁ"
-    ],
-    "Tolima": [
-        "AMBALEMA",
-        "ANZOÁTEGUI",
-        "ATACO",
-        "CAJAMARCA",
-        "DOLORES",
-        "EL GUAMO",
-        "ESPINAL",
-        "FRESNO",
-        "IBAGUÉ",
-        "LÍBANO",
-        "MURILLO",
-        "PLANADAS",
-        "RONCESVALLES",
-        "ROVIRA",
-    ],
-    "Cundinamarca": [
-        "ANAPOIMA",
-        "CABRERA",
-        "CACHIPAY",
-        "COGUA",
-        "CUCUNUBÁ",
-        "EL COLEGIO",
-        "EL ROSAL",
-        "FACATATIVÁ",
-        "FUSAGASUGÁ",
-        "GIRARDOT",
-        "GUASCA",
-        "LA CALERA",
-        "LA PALMA",
-        "LA VEGA",
-        "MACHETÁ",
-        "MOSQUERA",
-        "NEMOCÓN",
-        "ZIPAQUIRÁ",
-        "VILLETA",
-        "VILLAPINZÓN",
-        "UBATÉ",
-        "TIBACUY",
-        "PACHO",
-        "PASCA",
-        "SASAIMA",
-        "SIBATÉ",
-        "SILVANIA",
-        "SIMIJACA",
-        "SOACHA",
-        "SOPÓ",
-        "TABIO",
-        "TAUSA",
-        "QUEBRADANEGRA",
-        "QUETAME",
-    ],
-    "Risaralda": [
-        "APÍA",
-        "BALBOA",
-        "BELÉN DE UMBRÍA",
-        "GUÁTICA",
-        "LA CELIA",
-        "PEREIRA",
-        "SANTA ROSA DE CABAL"
-    ],
-    "Boyacá": [
-        "AQUITANIA",
-        "CHINAVITA",
-        "CHITA",
-        "CUÍTIVA",
-        "EL ESPINO",
-        "GUAYATÁ",
-        "GUICÁN",
-        "LA CAPILLA",
-        "MOTAVITA",
-        "ZETAQUIRÁ",
-        "VENTAQUEMADA",
-        "PAIPA",
-        "SIACHOQUE",
-        "SOCHA",
-        "SOGAMOSO",
-        "SOTAQUIRÁ",
-        "PAUNA",
-        "PESCA", 
-        "PISBA",
-        "SAN PABLO DE BORBUR",
-    ],
-    "Santander": [
-        "ARATOCA",
-        "BARRANCABERMEJA",
-        "BUCARAMANGA",
-        "CARCASÍ",
-        "CONFINES",
-        "FLORIDABLANCA",
-        "LEBRIJA",
-        "MOGOTES",
-        "MONIQUIRÁ",
-        "MÁLAGA",
-        "ONZAGA",
-        "TONA",
-        "SOCORRO",
-        "SUAITA",
-        "SURATÁ",
-        "PIEDECUESTA",
-        "SABANA DE TORRES"
-        "SAN VICENTE DE CHUCURÍ"
-    ],
-    "Arauca": [
-        "ARAUCA",
-        "SARAVENA",
-    ],
-    "Magdalena": [
-        "ARIGUANÍ (EL DIFICIL)",
-        "CIÉNAGA",
-        "EL BANCO",
-        "FUNDACIÓN",
-        "ZONA BANANERA",
-        "PIVIJAI",
-        "SAN SEBASTIÁN DE BUENAVISTA",
-        "SANTA MARTA",
-        "SANTA MARÍA",        
-    ],
-    "Bolívar": [
-        "ARJONA",
-        "CARTAGENA",
-        "EL CARMÉN DE BOLÍVAR",
-        "SANTA ROSA DEL SUR",
-    ],
-    "Quindio": [
-        "ARMENIA",
-        "BUENAVISTA",
-        "CALARCÁ",
-        "CIRCASIA",
-        "GÉNOVA",
-        "MONTENEGRO",
-        "PIJAO", 
-    ],
-    "Córdoba": [
-        "AYAPEL",
-        "CÓRDOBA",
-        "MONTELÍBANO",
-        "MONTERÍA",
-        "TIERRALTA",
-        "PLANETA RICA",
-        "SAHAGÚN",
-        "SAN BERNARDO DEL VIENTO",
-    ],
-    "Atlático": [
-        "BARRANQUILLA",
-        "SOLEDAD",
-    ],
-    "Bogotá DC": [
-        "BOGOTA, D.C",
-        "CIUDAD BOLÍVAR",
-    ],
-    "Cauca": [
-        "CAJIBÍO",
-        "EL TAMBO",
-        "GUAPI",
-        "INZÁ",
-        "LA SIERRA",
-        "VILLARRICA",
-        "TORIBÍO",
-        "PATÍA (EL BORDO)",
-        "PIENDAMÓ",
-        "POPAYÁN",
-        "PURACÉ (COCONUCO)",
-        "PÁEZ (BELALCÁZAR)",
-    ],
-    "Caldas": [
-        "CHINCHINA",
-        "MANIZALES",
-        "MANZANARES",
-        "MARQUETALIA",
-        "MARSELLA",
-        "MARULANDA",
-        "VILLAMARIA",
-        "PALESTINA",
-        "SUPIA",
-        "PENSILVANIA",
-        "RIOSUCIO",
-        "SALAMINA",
-    ],
-    "Norte de Santander": [
-        "CHINÁCOTA",
-        "CONVENCIÓN",
-        "CUCUTILLA",
-        "CÚCUTA",
-        "EL CARMEN",
-        "GRAMALOTE",
-        "HERRÁN",
-        "LABATECA",
-        "MUTISCUA",
-        "OCAÑA",
-        "TIBÚ",
-        "PAMPLONA",
-        "SILOS",
-        "SALAZAR",
-        "SAN CAYETANO",
-        "SARDINATA",
-    ],
-    "Caquetá": [
-        "EL DONCELLO",
-        "EL PAUJIL",
-        "FLORENCIA",
-        "SAN VICENTE DEL CAGUÁN",
-    ],
-    "Guainía": [
-        "INÍRIDA",
-    ],
-    "Meta": [
-        "LEJANÍAS",
-        "VISTAHERMOSA",
-        "VILLAVICENCIO",
-        "RESTREPO",
-    ],
-    "Amazonas": [
-        "LETICIA",
-    ],
-    "Montería": [
-        "LORICA",
-    ],
-    "Putumayo": [
-        "MOCOA",
-    ],
-    "Sucre": [
-        "MORROA",
-        "TOLÚ",
-        "SINCELEJO",
-        "SAN MARCOS",
-        "SAN BENITO ABAD",
-    ],
-    "Casanare": [
-        "OROCUÉ",
-        "YOPAL",
-        "TÁMARA",
-        "TRINIDAD",
-        "PAZ DE ARIPORO",
-    ],
-    "Atlántico": [
-        "REPELÓN",
-        "SABANALARGA",
-    ],
-    "San Andrés y Providencia": [
-        "SAN ANDRÉS",
-    ],
-    "Guaviare": [
-        "SAN JOSÉ DEL GUAVIARE",
-    ]
-}
+with open('localities.json') as loc:
+    DEPARTAMENTOS_MUNICIPIOS = json.load(loc)
 
 @app.route("/")
 def formulario():
     departamentos = list(
-        departamentos_y_municipios.keys()
+        DEPARTAMENTOS_MUNICIPIOS.keys()
     )  # Extrae solo los departamentos
     return render_template("index.html", departamentos=departamentos)
 
+@app.route('/get_municipios', methods=['POST'])
+def get_municipios():
+    try:
+        # Recibe el JSON enviado desde el cliente
+        data = request.get_json()
+        print(data, 'Data')
+        departamento = data.get('departamento')
+        # Recupera los municipios
+        municipios = list(
+            DEPARTAMENTOS_MUNICIPIOS[departamento]
+        )
+        return jsonify({"municipios": municipios}), 200
+
+    except Exception as e:
+        # Log del error
+        print(f"Error: {e}")
+        return jsonify({"error": "Error al obtener los municipios"}), 500
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    if request.method == 'POST':
+        review = request.form['review']
+        print(review)        
+        prediction = model.predict([review])
+        print(prediction)
+        if prediction == 1:
+            sentiment = "Positivo"
+        elif prediction == 0:
+            sentiment = "Negativo"
+        else:
+            sentiment = "Neutral"
+        
+        return render_template('index.html', prediction_text=f'El resultado es: {sentiment}')
 
 # Ruta para obtener los municipios según el departamento seleccionado
-
 if __name__ == "__main__":
     app.run(debug=True)
