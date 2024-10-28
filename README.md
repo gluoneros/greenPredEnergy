@@ -8,10 +8,12 @@ Debido a la posición geográfica, Colombia es un país con mucho potencial de d
 
 A través del análisis de datos energéticos y meteorológicos, de los municipios, este modelo evalua y predice la viabilidad de un proyecto de energía renovable. Con la información que brinda este algoritmo de _machine learning_ los inversores y los gobiernos locales tienen la oportunidad de evaluar y reducir los costos de un proyecto de energía solar o eólica. 
 
-## **Características del proyecto** :hammer: 
-Nuestro modelo trabaja con datos abierto del gobierno de Colombia. Introduce el municipio y recibe:
+## **Características del proyecto** hammer: 
+Nuestro modelo trabaja con datos abierto del gobierno de Colombia. 
 
-*Una evaluación directa de la viabilidad
+## **Una evaluación directa de la viabilidad:**
+* Introduce el municipio
+* Califica las condiciones del clima para un proyecto renovable
 
 ## **Tecnologías** 📗
 Se utilizan las siguientes tecnologias para el desarrollo del proyecto:
@@ -25,33 +27,6 @@ Se utilizan las siguientes tecnologias para el desarrollo del proyecto:
 * [seaborn](https://seaborn.pydata.org/) -- <img height="20" src="https://seaborn.pydata.org/_images/logo-mark-lightbg.svg?viewbox=auto" />
 * [flask](https://flask.palletsprojects.com/en/2.0.x/) -- <img height="20" src="https://cdn.simpleicons.org/flask?viewbox=auto" />
 
-## **Autores** 😊
-
-* **Monica Garcia**
-* **Juan Pablo Cardenas**
-* **Juan Pablo Quevedo**
-* **Hildebrando Vargas**
-* **Jonathan Gutierrez**
-* **Mary Luz Ceballosl**
-
-## **Tareas**  ✒️
-
- - [Importar librerías necesarias](# Importar librerías necesarias)
- 2. Cargar los Datos
- 3. Explore y visualice los datos para obtener información.
- 4. Prepare los datos para los algoritmos de machine learning.
- 5. Generación de Estadísticas Descriptivas
- 6. Visualización de datos utilizando gráficos de barras, histogramas y gráficos de dispersión
- 7. Identificación y manejo de valores atípicos y tendencias en los datos
- 8. Uso de técnicas como imputación de la media, mediana y regresión para completar datos faltantes.
- 9. Eliminación de registros con datos faltantes o imputación de valores categóricos.
- 10. Cálculo de la correlación entre variables.
- 11. Aplicación de técnicas de reducción de dimensionalidad para reducir la dimensionalidad de los datos.
- 12. Aplicación de PCA para reducir la dimensionalidad de datasets
- 13. Aplicación de técnicas de regresión para predecir valores de variables.
- 14. Ajusta tu modelo.
- 15. Presente su solución.
- 16. Inicie, supervise y mantenga su sistema.
 
 
 ## **Importar librerías necesarias** <a name="Importar librerías necesarias"></a>
@@ -86,6 +61,35 @@ La biblioteca  permite interactuar con la API de datos abiertos de Socrata. Faci
 Se utiliza en Google Colab, permite serializar y deserializar objetos de Python. Esto es para guardar modelos de aprendizaje automático y estructuras de datos en archivos, facilitando su almacenamiento y carga posterior sin necesidad de regenerarlos, optimizando así el tiempo y los recursos en proyectos de análisis y machine learning.
 
 
+## **¿Qué es el proyecto?** 🤔
+Este proyecto tiene como objetivo desarrollar un modelo de predicción que evalúe la viabilidad de proyectos de energía renovable en Colombia. Utilizando técnicas de análisis de datos y aprendizaje automático, se busca identificar factores clave que influyen en el éxito de estos proyectos, como la ubicación geográfica, las condiciones climáticas.
+
+## **¿Por qué es importante?** 👆
+La transición energética es crucial para Colombia, un país que busca aumentar su capacidad de generación a partir de fuentes renovables. Con una capacidad instalada en crecimiento y un compromiso gubernamental hacia la sostenibilidad, este proyecto es relevante para facilitar la toma de decisiones informadas sobre inversiones en energía renovable. Al predecir la viabilidad de proyectos, se pueden optimizar recursos, minimizar riesgos y contribuir a la lucha contra el cambio climático.
+
+## **¿Cómo se llevó a cabo?** 📑📉
+Etapas del proyecto:
+
+* Recolección de Datos: Se recopilaron datos relevantes sobre proyectos existentes, condiciones ambientales y políticas energéticas.
+* Análisis Exploratorio: Se realizó un análisis exploratorio para entender las relaciones entre variables y se prepararon los datos para modelado.
+* Desarrollo del Modelo: Se emplearon algoritmos de aprendizaje automático para crear un modelo predictivo que evalúa la viabilidad de nuevos proyectos.
+* Validación y Evaluación: Se valido el modelo utilizando métricas adecuadas para asegurar su precisión y confiabilidad.
+* Implementación: Finalmente, se desarrolló una interfaz que permite a los interesados evaluar nuevos proyectos utilizando el modelo.
 
 
 
+
+
+
+
+
+
+
+## **Autores** 😊
+
+* **Monica Garcia**
+* **Juan Pablo Cardenas**
+* **Juan Pablo Quevedo**
+* **Hildebrando Vargas**
+* **Jonathan Gutierrez**
+* **Mary Luz Ceballosl**
