@@ -61,8 +61,31 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error, r2_score
-from sklearn.decomposition import PCA
+from sklearn.model_selection import train_test_split, KFold, cross_val_score
+from sklearn.linear_model import
+from sklearn.naive_bayes import MultinomialNB, GaussianNB, BernoulliNB
+from sklearn.metrics import classification_report, accuracy_score, confusion_matrix, auc, roc_curve, roc_auc_score
+from sklearn.impute import KNNImputer
+from sklearn.preprocessing import RobustScaler
+from sodapy
+import pickle
 ```
+## *Pandas:* 
+Biblioteca de Python diseñada que trabaja con datos tabulares, es decir, datos organizados en filas y columnas, Proporciona estructuras de datos como DataFrames, facilita la manipulación y análisis de datos.
+## *NumPy:*
+Biblioteca que proporciona soporte para arreglos multidimensionales y funciones matemáticas de alto rendimiento. Utilizada en la ciencia de datos, análisis numérico y computación científica.
+## *Matplotlib:* 
+Biblioteca de Python que crea visualizaciones estáticas, animadas e interactivas en Python. Es utilizada en la ciencia de datos, análisis de datos y visualización. Se usa para representar datos numéricos en forma gráfica.
+## *Seaborn:* 
+Biblioteca de visualización de datos con  interfaz de alto nivel para crear gráficos estadísticos, simplifica la creación de gráficos complejos, incluyendo temas y paletas de colores que mejoran la estética de las visualizaciones.
+## *Sklearn:*
+Las librerías de Scikit-learn en Google Colab ofrecen herramientas clave para el aprendizaje automático: train_test_split divide los datos en conjuntos de entrenamiento y prueba; KFold y cross_val_score facilitan la validación cruzada; los clasificadores MultinomialNB, GaussianNB y BernoulliNB implementan Naive Bayes; funciones como classification_report y accuracy_score evalúan el rendimiento del modelo; KNNImputer imputa valores faltantes usando K-Nearest Neighbors, y RobustScaler normaliza características de manera robusta frente a outliers.
+## *SodaPy:*
+La biblioteca  permite interactuar con la API de datos abiertos de Socrata. Facilita la consulta y obtención de conjuntos de datos públicos en formatos como JSON o CSV, lo que es útil en Google Colab para analizar datos de interés público sin necesidad de descargarlos manualmente.
+## *Pickle:*
+Se utiliza en Google Colab, permite serializar y deserializar objetos de Python. Esto es para guardar modelos de aprendizaje automático y estructuras de datos en archivos, facilitando su almacenamiento y carga posterior sin necesidad de regenerarlos, optimizando así el tiempo y los recursos en proyectos de análisis y machine learning.
+
+
+
+
+
