@@ -22,7 +22,6 @@ def get_municipios():
     try:
         # Recibe el JSON enviado desde el cliente
         data = request.get_json()
-        print(data, 'Data')
         departamento = data.get('departamento')
         # Recupera los municipios
         municipios = list(
@@ -37,19 +36,25 @@ def get_municipios():
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    if request.method == 'POST':
-        review = request.form['review']
-        print(review)        
-        prediction = model.predict([review])
-        print(prediction)
-        if prediction == 1:
-            sentiment = "Positivo"
-        elif prediction == 0:
-            sentiment = "Negativo"
-        else:
-            sentiment = "Neutral"
-        
-        return render_template('index.html', prediction_text=f'El resultado es: {sentiment}')
+    data = request.get_json()
+    municipio = data.get('municipio')
+    prediction = model.predict([municipio])
+    print(prediction, '<--- prediction')
+    justify = ""
+    if prediction == 1:
+        justify = f"El municipio {municipio} es viable para proyectos de energía renovable. "
+        # if datos_municipio['dias_lluvia'].values[0] < 150:
+        # justify += "Se recomienda un proyecto de energía Solar debido a que llueve menos de 150 al año. "
+        # elif datos_municipio['velocidad_viento'].values[0] > 3.5:
+        # justify += "Se recomienda un proyecto de energía Eólica debido a que la velocidad promedio del viento es superior al 3.5 m/s."
+        # elif datos_municipio['velocidad_viento'].values[0] > 3.5 and datos_municipio['dias_lluvia'].values[0] < 150:
+        # justify += "Los proyectos de energía Solar y Eólico son ideales por condiciones climáticas ideales."
+    else:
+        justify = f"El municipio {municipio} NO es viable para proyectos de energía renovable. "
+        # if datos_municipio['dias_lluvia'].values[0] > 150 or datos_municipio['velocidad_viento'].values[0] < 3.5:
+        # justify += "No se recomienda un proyecto de energía Eólica debido a que no existen buenas condiciones climáticas. "
+
+    return jsonify({"justify": data}), 200
 
 # Ruta para obtener los municipios según el departamento seleccionado
 if __name__ == "__main__":

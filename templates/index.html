@@ -20,20 +20,18 @@
             <option value="{{ dept }}">{{ dept }}</option>
             {% endfor %}
         </select>
+    </form>
+
+    <form action="/predict" method="POST">
         <!-- Selector de municipio -->
         <label for="municipio">Municipio:</label>
         <select id="municipio" name="municipio">
             <option value="">Selecciona un municipio</option>
         </select>
-        <button type="submit">Enviar</button>
+        <!-- <button type="submit">Enviar</button> -->
     </form>
 
-    <!-- <form action="/predict" method="POST">
-        <label for="review">Ingrese su reseña de producto:</label><br>
-        <textarea id="review" name="review" rows="4" cols="50"></textarea><br><br>
-        <input type="submit" value="Enviar">
-    </form>
-    {% if prediction_text %}
+    <!-- {% if prediction_text %}
         <h2>{{ prediction_text }}</h2>
     {% endif %} -->
 
@@ -64,6 +62,33 @@
                     $.each(municipios, function (index, municipio) {
                         $('#municipio').append('<option value="' + municipio + '">' + municipio + '</option>');
                     });
+            }
+        });
+        $('#municipio').change(async function () {
+            function predict() {
+                let result;
+                try {
+                    const result = $.ajax({
+                        type: 'POST',
+                        url: '/predict',
+                        contentType: 'application/json',
+                        data: JSON.stringify({ "municipio": municipio }),
+                        dataType: "json"
+                    });
+                    return result;
+                } catch (error) {
+                    console.error(error);
+                    return error;
+                }
+            }
+            var municipio = $(this).val();
+            if (municipio) {
+                const data = await predict();
+                console.log(data, ' data')
+                // if (municipios)
+                //     $.each(municipios, function (index, municipio) {
+                //         $('#municipio').append('<option value="' + municipio + '">' + municipio + '</option>');
+                //     });
             }
         });
     </script>
