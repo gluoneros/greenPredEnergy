@@ -5,34 +5,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario de Departamento y Municipio</title>
+    <link rel="stylesheet" href="/static/styles/normalize.css">
+    <link rel="stylesheet" href="/static/styles/simple.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
-    <h1>PROYECTO PARA MOSTRAR LOS MUNICIPIOS QUE SEA FACTIBLE PARA PROYECTO RENOVABLE</h1>
-    <h1>Selecciona tu Departamento y Municipio</h1>
-    <form action="/get_municipios" method="POST">
-        <!-- Selector de departamento -->
-        <label for="departamento">Departamento:</label>
-        <select id="departamento" name="departamento">
-            <option value="">Selecciona un departamento</option>
-            {% for dept in departamentos %}
-            <option value="{{ dept }}">{{ dept }}</option>
-            {% endfor %}
-        </select>
-    </form>
+    <h2>Viabilidad de un Proyecto de Energía Renovable en Colombia</h2>
 
-    <form action="/predict" method="POST">
-        <!-- Selector de municipio -->
-        <label for="municipio">Municipio:</label>
-        <select id="municipio" name="municipio">
-            <option value="">Selecciona un municipio</option>
-        </select>
-        <!-- <button type="submit">Enviar</button> -->
-    </form>
+    <h3>Ingresa las siguientes variables</h3>
+    <div>
+        <label for="energia_activa">Energía activa:</label>
+        <input type="number" id="energia_activa" name="energia_activa">
+    </div>
+    <div>
+        <label for="energia_reactiva">Energía reactiva:</label>
+        <input type="number" id="energia_reactiva" name="energia_reactiva">
+    </div>
+    <div>
+        <label for="dias_lluvia">Días lluvia:</label>
+        <input type="number" id="dias_lluvia" name="dias_lluvia">
+    </div>
+    <div>
+        <label for="velocidad_viento">Velocidad viento:</label>
+        <input type="number" id="velocidad_viento" name="velocidad_viento">
+    </div>
+
+    <h3>Selecciona tu Departamento y Municipio</h3>
+    <div>
+        <div>
+            <label for="departamento">Departamento:</label>
+            <select id="departamento" name="departamento">
+                <option value="">Selecciona un departamento</option>
+                {% for dept in departamentos %}
+                <option value="{{ dept }}">{{ dept }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label for="municipio">Municipio:</label>
+            <select id="municipio" name="municipio">
+                <option value="">Selecciona un municipio</option>
+            </select>
+        </div>
+    </div>
 
     <!-- {% if prediction_text %}
-        <h2>{{ prediction_text }}</h2>
+        <h3>{{ prediction_text }}</h3>
     {% endif %} -->
 
     <script>
@@ -65,6 +84,14 @@
             }
         });
         $('#municipio').change(async function () {
+            let energia_activa = $( "#energia_activa" ).val();
+            console.log(energia_activa, ' energia_activa en JQUERY')
+            let energia_reactiva = $( "#energia_reactiva" ).val();
+            console.log(energia_reactiva, ' energia_reactiva en JQUERY')
+            let dias_lluvia = $( "#dias_lluvia" ).val();
+            console.log(dias_lluvia, ' dias_lluvia en JQUERY')
+            let velocidad_viento = $( "#velocidad_viento" ).val();
+            console.log(velocidad_viento, ' velocidad_viento en JQUERY')
             function predict() {
                 let result;
                 try {
@@ -72,7 +99,13 @@
                         type: 'POST',
                         url: '/predict',
                         contentType: 'application/json',
-                        data: JSON.stringify({ "municipio": municipio }),
+                        data: JSON.stringify({
+                            "municipio": municipio,
+                            "energia_activa": energia_activa,
+                            "energia_reactiva": energia_reactiva,
+                            "dias_lluvia": dias_lluvia,
+                            "velocidad_viento": velocidad_viento,
+                        }),
                         dataType: "json"
                     });
                     return result;
