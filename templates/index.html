@@ -7,10 +7,11 @@
     <title>Formulario de Departamento y Municipio</title>
     <link rel="stylesheet" href="/static/styles/normalize.css">
     <link rel="stylesheet" href="/static/styles/simple.css">
+    <link rel="stylesheet" href="/static/styles/styles.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
-<body>
+<body onload="updateFields()">
     <h2>Viabilidad de un Proyecto de Energía Renovable en Colombia</h2>
 
     <h3>Ingresa las siguientes variables</h3>
@@ -35,7 +36,7 @@
     <div>
         <div>
             <label for="departamento">Departamento:</label>
-            <select id="departamento" name="departamento">
+            <select id="departamento" name="departamento" style="width: 290px">
                 <option value="">Selecciona un departamento</option>
                 {% for dept in departamentos %}
                 <option value="{{ dept }}">{{ dept }}</option>
@@ -44,17 +45,37 @@
         </div>
         <div>
             <label for="municipio">Municipio:</label>
-            <select id="municipio" name="municipio">
+            <select id="municipio" name="municipio" style="width: 290px">
                 <option value="">Selecciona un municipio</option>
             </select>
         </div>
     </div>
 
-    <!-- {% if prediction_text %}
-        <h3>{{ prediction_text }}</h3>
-    {% endif %} -->
+    <!--Creates the popup body-->
+    <div class="popup-overlay">
+        <!--Creates the popup content-->
+        <div class="popup-content">
+
+        </div>
+        <button type="button" class="close">Terminar</button>
+    </div>
 
     <script>
+        //removes the "active" class to .popup and .popup-content when the "Close" button is clicked
+        $(".close, .popup-overlay").on("click", function () {
+            $(".popup-overlay, .popup-content").removeClass("active");
+            $("#departamento").val($("#departamento option:first").val());
+            $('#municipio option:not(:first)').remove();
+            updateFields()
+        });
+
+        function updateFields() {
+            $("#energia_activa").val('')
+            $("#energia_reactiva").val('')
+            $("#dias_lluvia").val('')
+            $("#velocidad_viento").val('')
+            $("#municipio").prop('disabled', true);
+        }
         // Actualizar los municipios cuando selecciona un departamento
         $('#departamento').change(async function () {
             function getMunicipios() {
@@ -76,22 +97,19 @@
             var departamento = $(this).val();
             if (departamento) {
                 const { municipios } = await getMunicipios();
-                console.log(municipios, ' responseJSON')
                 if (municipios)
-                    $.each(municipios, function (index, municipio) {
-                        $('#municipio').append('<option value="' + municipio + '">' + municipio + '</option>');
-                    });
+                    $("#municipio").prop('disabled', false);
+                $('#municipio option:not(:first)').remove();
+                $.each(municipios, function (index, municipio) {
+                    $('#municipio').append('<option value="' + municipio + '">' + municipio + '</option>');
+                });
             }
         });
         $('#municipio').change(async function () {
-            let energia_activa = $( "#energia_activa" ).val();
-            console.log(energia_activa, ' energia_activa en JQUERY')
-            let energia_reactiva = $( "#energia_reactiva" ).val();
-            console.log(energia_reactiva, ' energia_reactiva en JQUERY')
-            let dias_lluvia = $( "#dias_lluvia" ).val();
-            console.log(dias_lluvia, ' dias_lluvia en JQUERY')
-            let velocidad_viento = $( "#velocidad_viento" ).val();
-            console.log(velocidad_viento, ' velocidad_viento en JQUERY')
+            let energia_activa = $("#energia_activa").val();
+            let energia_reactiva = $("#energia_reactiva").val();
+            let dias_lluvia = $("#dias_lluvia").val();
+            let velocidad_viento = $("#velocidad_viento").val();
             function predict() {
                 let result;
                 try {
@@ -110,18 +128,28 @@
                     });
                     return result;
                 } catch (error) {
-                    console.error(error);
                     return error;
                 }
             }
             var municipio = $(this).val();
-            if (municipio) {
+            if (municipio && energia_activa && energia_reactiva && dias_lluvia && velocidad_viento) {
                 const data = await predict();
-                console.log(data, ' data')
-                // if (municipios)
-                //     $.each(municipios, function (index, municipio) {
-                //         $('#municipio').append('<option value="' + municipio + '">' + municipio + '</option>');
-                //     });
+                if (data) {
+                    const { justification, prediction } = data
+                    if (prediction) {
+                        $(".popup-overlay").css('background-color', 'rgb(213, 255, 205)');
+                    } else {
+                        $(".popup-overlay").css('background-color', 'rgb(255, 239, 239)');
+                    }
+                    $(".popup-overlay, .popup-content").addClass("active");
+                    $(".popup-content").empty()
+                    $(".popup-content").append(
+                        '<p style="padding-inline: 6rem; margin:auto; margin: auto; color: darkslategrey">' + justification + '</p>'
+                    )
+                }
+            }
+            else {
+                alert('Ingrese los valores requeridos')
             }
         });
     </script>

@@ -1,4 +1,5 @@
 from flask import Flask, json, render_template, request, jsonify
+import numpy as np
 import pickle
 
 app = Flask(__name__)
@@ -45,26 +46,22 @@ def predict():
         municipio = data.get("municipio")
         energia_activa = data.get("energia_activa")
         energia_activa = float(energia_activa)
-        print(energia_activa, '<--- energia_activa')
         
         energia_reactiva = data.get("energia_reactiva")
         energia_reactiva = float(energia_reactiva)
-        print(energia_reactiva, '<--- energia_reactiva')
         
         dias_lluvia = data.get("dias_lluvia")
         dias_lluvia = float(dias_lluvia)
-        print(dias_lluvia, '<--- dias_lluvia')
         
         velocidad_viento = data.get("velocidad_viento")
         velocidad_viento = float(velocidad_viento)
-        print(velocidad_viento, '<--- velocidad_viento')
         
         # 'energia_activa', 'energia_reactiva', 'dias_lluvia', 'velocidad_viento'
         # 990127.458333,    272152.864684,      200.60,        1.600000          --> 0
         # 990127.458333,    272152.864684,      149.60,        0.500000          --> 1
         # prediction = model.predict([[990127.458333, 272152.864684, 149.60, 0.500000]])
-        prediction = model.predict([[energia_activa, energia_reactiva, dias_lluvia, velocidad_viento]])        
-        print('VIABLE '+municipio) if prediction == 1 else print(municipio+' NO VIABLE')
+        prediction = int(model.predict([[energia_activa, energia_reactiva, dias_lluvia, velocidad_viento]])[0])
+        # print('VIABLE '+municipio) if prediction == 1 else print(municipio+' NO VIABLE')
         
         justification = ""
         if prediction == 1:
@@ -76,12 +73,12 @@ def predict():
             elif velocidad_viento > 3.5 and dias_lluvia < 150:
                 justification += "Los proyectos de energía Solar y Eólico son ideales por condiciones climáticas ideales."
         else:
-            justification = f"El municipio {municipio} NO es viable para proyectos de energía renovable. "
+            justification = f"El municipio {municipio} NO es viable para proyectos de energía renovable."
             if dias_lluvia > 150 or velocidad_viento < 3.5:
                 justification += "No se recomienda un proyecto de energía Eólica debido a que no existen buenas condiciones climáticas."
 
         # return justification
-        return jsonify({"justification": justification, "predition": prediction}), 200
+        return jsonify({"justification": justification, "prediction": False if prediction == 0 else True}), 200
 
     except Exception as e:
         # Log del error
