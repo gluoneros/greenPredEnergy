@@ -1,7 +1,5 @@
 # ***GreenPredenergy:*** **Predicción de viabilidad de proyectos de energia renovable en Colombia**
-### Proyecto Final - TalentoTech 2024
 
-> El proyecto fue realizado en el marco del curso de AI-ML TalentoTech
 
 ## **Descripcion** 🚀
 Debido a la posición geográfica, Colombia es un país con mucho potencial de desarrollar proyectos de energía renovable, sin embargo, los esfuerzos del gobierno se ven mermados por la gran desconexión del territorio. Es por esta razón que este proyecto se enfoca en traer la atención a estos lugares, con el fin de ser considerados como fuertes candidatos para invertir en su infrasestructura energética y así fortalecer el desarrollo regional del país.
