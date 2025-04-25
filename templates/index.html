@@ -5,65 +5,132 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <title>Formulario de Departamento y Municipio</title>
+    <title>Formulario de Departamento y Municipio - GreenPredEnergy</title>
     <link rel="stylesheet" href="/static/styles/normalize.css">
     <link rel="stylesheet" href="/static/styles/simple.css">
     <link rel="stylesheet" href="/static/styles/styles.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
-<body onload="updateFields()">
-    <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-        GreenPredEnergy</h1>
-    <h2 class="mb-6 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
-        Viabilidad de un Proyecto de Energía Renovable en Colombia
-    </h2>
+<body onload="updateFields()" class="bg-gray-50 dark:bg-gray-900">
+    <div class="container mx-auto px-4 py-8">
+        <header class="text-center mb-10">
+            <div class="flex items-center justify-center gap-3 mb-3">
+                <!-- Icono de energía verde (puedes reemplazarlo con tu logo) -->
+                <svg class="w-10 h-10 text-green-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"></path>
+                </svg>
+                <h1 class="text-4xl font-extrabold tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+                    GreenPredEnergy
+                </h1>
+            </div>
+            <div class="mx-auto max-w-3xl">
+                <h2 class="mb-6 text-lg font-normal text-gray-600 lg:text-xl dark:text-gray-400">
+                    Viabilidad de un Proyecto de Energía Renovable en Colombia
+                </h2>
+                <div class="h-1 w-32 bg-green-500 mx-auto rounded-full mb-8"></div>
+                <p class="text-gray-500 dark:text-gray-400">
+                    Complete el formulario para evaluar el potencial de energía renovable en su ubicación
+                </p>
+            </div>
+        </header>
 
-    <h3>Ingresa las siguientes variables</h3>
-    <div>
-        <label for="energia_activa">Energía activa:</label>
-        <input type="number" id="energia_activa" name="energia_activa">
-    </div>
-    <div>
-        <label for="energia_reactiva">Energía reactiva:</label>
-        <input type="number" id="energia_reactiva" name="energia_reactiva">
-    </div>
-    <div>
-        <label for="dias_lluvia">Días lluvia:</label>
-        <input type="number" id="dias_lluvia" name="dias_lluvia">
-    </div>
-    <div>
-        <label for="velocidad_viento">Velocidad viento:</label>
-        <input type="number" id="velocidad_viento" name="velocidad_viento">
-    </div>
-
-    <h3>Selecciona tu Departamento y Municipio</h3>
-    <div>
-        <div>
-            <label for="departamento">Departamento:</label>
-            <select id="departamento" name="departamento" style="width: 290px">
-                <option value="">Selecciona un departamento</option>
-                {% for dept in departamentos %}
-                <option value="{{ dept }}">{{ dept }}</option>
-                {% endfor %}
-            </select>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mt-8 max-w-2xl mx-auto">
+            <form>
+                <!-- Primera sección - Variables de energía -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-4 pb-2 border-b border-gray-200 dark:border-gray-700">
+                        Ingresa las siguientes variables
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label for="energia_activa" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                Energía activa:
+                            </label>
+                            <input type="number" id="energia_activa" name="energia_activa" 
+                                class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <label for="energia_reactiva" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                Energía reactiva:
+                            </label>
+                            <input type="number" id="energia_reactiva" name="energia_reactiva" 
+                                class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <label for="dias_lluvia" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                Días lluvia:
+                            </label>
+                            <input type="number" id="dias_lluvia" name="dias_lluvia" 
+                                class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <label for="velocidad_viento" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                Velocidad viento:
+                            </label>
+                            <input type="number" id="velocidad_viento" name="velocidad_viento" 
+                                class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Segunda sección - Selección de ubicación -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-4 pb-2 border-b border-gray-200 dark:border-gray-700">
+                        Selecciona tu Departamento y Municipio
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label for="departamento" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                Departamento:
+                            </label>
+                            <select id="departamento" name="departamento" 
+                                class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                <option value="">Selecciona un departamento</option>
+                                {% for dept in departamentos %}
+                                <option value="{{ dept }}">{{ dept }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <label for="municipio" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                Municipio:
+                            </label>
+                            <select id="municipio" name="municipio" 
+                                class="block w-full px-4 py-2 mt-1 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                <option value="">Selecciona un municipio</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Botón de envío -->
+                <div class="flex justify-center mt-6">
+                    <button type="submit" class="px-6 py-3 bg-green-600 text-white font-medium rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors duration-300">
+                        Analizar viabilidad
+                    </button>
+                </div>
+            </form>
         </div>
-        <div>
-            <label for="municipio">Municipio:</label>
-            <select id="municipio" name="municipio" style="width: 290px">
-                <option value="">Selecciona un municipio</option>
-            </select>
+        
+        <!-- Popup/Modal -->
+        <div class="popup-overlay fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+            <div class="popup-content bg-white dark:bg-gray-800 p-6 rounded-lg shadow-xl max-w-md w-full mx-4">
+                <!-- El contenido del popup irá aquí -->
+            </div>
+            <button type="button" class="close absolute top-4 right-4 bg-white dark:bg-gray-700 text-gray-800 dark:text-white p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-600 focus:outline-none">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+                <span class="sr-only">Terminar</span>
+            </button>
         </div>
-    </div>
-
-    <!--Creates the popup body-->
-    <div class="popup-overlay">
-        <!--Creates the popup content-->
-        <div class="popup-content">
-
-        </div>
-        <button type="button" class="close">Terminar</button>
-    </div>
 
     <script>
         //removes the "active" class to .popup and .popup-content when the "Close" button is clicked
